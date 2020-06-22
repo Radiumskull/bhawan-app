@@ -14,11 +14,11 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   String _email = "";
   String _password = "";
-  final spinkit = SpinKitFadingCircle(
+  final spinkit = SpinKitCircle(
     itemBuilder: (BuildContext context, int index) {
       return DecoratedBox(
         decoration: BoxDecoration(
-          color: index.isEven ? Colors.red : Colors.green,
+          color: Colors.yellow
         ),
       );
     },
@@ -40,14 +40,26 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
     return Scaffold(
-      body: authBloc.loading ? spinkit : Container(
+      resizeToAvoidBottomPadding: false,
+      extendBody: true,
+      body: Container(
+        color: authBloc.darkMode ? Colors.black : Colors.white,
+        child : authBloc.loading ? spinkit : Container(
         color: Colors.yellow,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            SizedBox(height: 40,),
+            Column(
+              children: <Widget>[
+                Image.asset('assets/images/logo.png', fit: BoxFit.contain, height: 150,),
+                Text("Bhawan", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, letterSpacing: 5), ),
+              ]
+            ),
+            SizedBox(height: 20,),
             Container(
               padding: EdgeInsets.all(30),
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.fromLTRB(20, 0 , 20, 0),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.all(Radius.circular(29))
@@ -65,7 +77,7 @@ class _LoginState extends State<Login> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(authBloc.error != null ? authBloc.error : ""),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 10,),
                     RaisedButton(
                       child: Text("Log In", style: TextStyle(fontFamily: 'Montserrat', fontSize: 18),),
                       onPressed: () async {
@@ -78,10 +90,12 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-            )
+            ),
+            SizedBox(height: 30,),
           ],
         ),
       ),
+    )
     );
   }
 }

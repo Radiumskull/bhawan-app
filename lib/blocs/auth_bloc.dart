@@ -4,12 +4,18 @@ import 'package:http/http.dart' as http;
 
 class AuthBloc extends ChangeNotifier{
   String _token = "a73b38791a2a49cda5cb38e61076a4eb";
+//  String _token;
   bool _loading = false;
+  String _page = 'Home';
+  bool _darkMode = false;
+
   String _error;
 
   get error => _error;
   get token => _token;
   get loading => _loading;
+  get page => _page;
+  get darkMode => _darkMode;
 
   set token(String token){
     _token = token;
@@ -37,6 +43,18 @@ class AuthBloc extends ChangeNotifier{
     }
     notifyListeners();
   }
+
+  void changePage(newPage){
+    _page = newPage;
+    notifyListeners();
+  }
+
+  void changeUI(bool mode){
+    _darkMode = mode;
+    notifyListeners();
+  }
+
+
 
   void logout() {
     _token = null;

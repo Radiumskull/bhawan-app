@@ -11,14 +11,14 @@ class InputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: TextFormField(
-        onChanged: (text) => this.inputHandler(this.labelText, text),
+        onChanged: (text) => this.inputHandler(this.labelText, text.trim()),
         obscureText: this.type == "password" ? true : false,
         style: TextStyle(fontSize: 18),
         validator: (value) {
           if(value.isEmpty) return "Please enter your ${this.labelText.toLowerCase()}.";
           switch(this.type){
             case "email":
-              if(!isEmail(value)) return "Please enter a valid email.";
+              if(!isEmail(value.trim())) return "Please enter a valid email.";
               break;
             default:
               break;

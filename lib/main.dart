@@ -14,13 +14,13 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider.value(value : AuthBloc(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Bhawan',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.amber,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           buttonTheme: ButtonThemeData(
             minWidth: 150,
-            height: 40,
+            height: 48,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(29))
             ),
