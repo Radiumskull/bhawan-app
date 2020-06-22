@@ -9,30 +9,37 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
-
     return Scaffold(
         drawer: Drawer(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              FlatButton(
-                onPressed: (){
-                  authBloc.changePage('Home');
-                  Navigator.pop(context);
-                },
-                child: Text('Home'),
+              SizedBox(height: 50,),
+              Image.asset('assets/images/logo.png', height: 150,),
+              SizedBox(height: 100,),
+              Column(
+                children: <Widget>[
+                  FlatButton(
+                    onPressed: (){
+                      authBloc.changePage('Home');
+                      Navigator.pop(context);
+                    },
+                    child: Text('Home'),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      authBloc.changePage('Settings');
+                      Navigator.pop(context);
+                    },
+                    child: Text('Settings'),
+                  ),
+                  FlatButton(
+                    onPressed: authBloc.logout,
+                    child: Text('Log Out'),
+                  ),
+                ],
               ),
-              FlatButton(
-              onPressed: () {
-                authBloc.changePage('Settings');
-                Navigator.pop(context);
-              },
-                child: Text('Settings'),
-              ),
-              FlatButton(
-                onPressed: authBloc.logout,
-                child: Text('Log Out'),
-              ),
+              SizedBox(height: 100,),
             ],
           ),
         ),

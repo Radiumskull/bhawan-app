@@ -7,11 +7,9 @@ class SwitchObject extends StatelessWidget {
   final bool darkMode;
   SwitchObject(this.switchObject, this.updateSwitch, this.darkMode);
 
-
   @override
   Widget build(BuildContext context) {
         if(switchObject.isDimmer){
-          double serverVal = switchObject.value.toDouble();
           return Container(
             width: 300,
             height: 120,
@@ -28,17 +26,18 @@ class SwitchObject extends StatelessWidget {
                   child: Text("DIMMER " + switchObject.switchName.substring(1), style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
                 ),
                 Slider(
+                  onChanged: (value){},
+                  onChangeEnd: (value){
+                    this.updateSwitch({ switchObject.switchName : value.toInt() });
+                  },
                   activeColor: Colors.orange,
-                  label: serverVal.toString(),
-                  value: serverVal,
+                  label: switchObject.value.toString(),
+                  value: switchObject.value.toDouble(),
                   min: 0.0,
                   max: 255.0,
                   divisions: 100,
-                  onChanged: (value) {
-                    serverVal= value;
-                    this.updateSwitch({ switchObject.switchName : value.toInt() });
-                    },
                 ),
+
               ],
             )
           );

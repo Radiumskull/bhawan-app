@@ -1,13 +1,30 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthBloc extends ChangeNotifier{
-  String _token = "a73b38791a2a49cda5cb38e61076a4eb";
-//  String _token;
+  String _token;
   bool _loading = false;
   String _page = 'Home';
   bool _darkMode = false;
+
+  AuthBloc(){
+    init();
+  }
+
+  void init() async {
+    SharedPreferences userData = await SharedPreferences.getInstance();
+    final temp = userData.getString('auth_token');
+    final isDark = userData.getBool('darkmode');
+    if(temp != null){
+      _token = temp;
+    }
+    if(isDark != null){
+      _darkMode = isDark;
+    }
+    notifyListeners();
+  }
 
   String _error;
 
@@ -21,6 +38,7 @@ class AuthBloc extends ChangeNotifier{
     _token = token;
     notifyListeners();
   }
+
   void setLoading(){
     _loading = !_loading;
     notifyListeners();
@@ -37,7 +55,10 @@ class AuthBloc extends ChangeNotifier{
       setLoading();
       final body = jsonDecode(res.body);
       if(body['error'] != null) _error = body['error'];
+
+      SharedPreferences userData = await SharedPreferences.getInstance();
       _token = body['token'];
+      await userData.setString('auth_token', body['token']);
     } catch (e) {
       _error = "Error Connecting to Server.";
     }
@@ -49,14 +70,18 @@ class AuthBloc extends ChangeNotifier{
     notifyListeners();
   }
 
-  void changeUI(bool mode){
+  void changeUI(bool mode) async {
+    SharedPreferences userData = await SharedPreferences.getInstance();
     _darkMode = mode;
+    await userData.setBool('darkmode', mode);
     notifyListeners();
   }
 
 
 
-  void logout() {
+  void logout() async {
+    SharedPreferences userData = await SharedPreferences.getInstance();
+    await userData.setString('auth_token', null);
     _token = null;
     _error = null;
     notifyListeners();
