@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AuthBloc extends ChangeNotifier{
   String _token;
   bool _loading = false;
-  String _page = 'Home';
   bool _darkMode = false;
 
   AuthBloc(){
@@ -31,7 +30,6 @@ class AuthBloc extends ChangeNotifier{
   get error => _error;
   get token => _token;
   get loading => _loading;
-  get page => _page;
   get darkMode => _darkMode;
 
   set token(String token){
@@ -65,8 +63,26 @@ class AuthBloc extends ChangeNotifier{
     notifyListeners();
   }
 
-  void changePage(newPage){
-    _page = newPage;
+  void register(email, phone) async {
+    String url = "http://bhawan.co.in/api/register/";
+    try{
+      setLoading();
+      final res = await http.post(url, body : jsonEncode({
+        'email' : email,
+        'phone_number' : int.parse(phone)
+      }));
+      setLoading();
+      final body = jsonDecode(res.body);
+      print(body);
+      if(body['error'] != null) _error = body['error'];
+    }catch(e){
+      _error = "Error Connecting to Server.";
+    }
+    notifyListeners();
+  }
+
+  void clearError(){
+    _error = "";
     notifyListeners();
   }
 

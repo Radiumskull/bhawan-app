@@ -20,6 +20,9 @@ class InputField extends StatelessWidget {
             case "email":
               if(!isEmail(value.trim())) return "Please enter a valid email.";
               break;
+            case "phone":
+              if(!isNumeric(value.trim()) && value.length != 10) return "Enter a Valid Phone Number";
+              break;
             default:
               break;
           }

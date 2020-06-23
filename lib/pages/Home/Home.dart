@@ -5,7 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  String _page = 'Home';
+  void changePage(newPage){
+    setState(() {
+      _page = newPage;
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
@@ -21,14 +33,14 @@ class Home extends StatelessWidget {
                 children: <Widget>[
                   FlatButton(
                     onPressed: (){
-                      authBloc.changePage('Home');
+                      changePage('Home');
                       Navigator.pop(context);
                     },
                     child: Text('Home'),
                   ),
                   FlatButton(
                     onPressed: () {
-                      authBloc.changePage('Settings');
+                      changePage('Settings');
                       Navigator.pop(context);
                     },
                     child: Text('Settings'),
@@ -44,9 +56,9 @@ class Home extends StatelessWidget {
           ),
         ),
         appBar: AppBar(
-          title: Text(authBloc.page),
+          title: Text(_page),
         ),
-        body: authBloc.page == 'Home' ? Container(color: authBloc.darkMode ? Colors.black87 : Colors.white , child: Controller()) : Settings(),
+        body: _page == 'Home' ? Container(color: authBloc.darkMode ? Colors.black87 : Colors.white , child: Controller()) : Settings(),
     );
   }
 }

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.amber,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           buttonTheme: ButtonThemeData(
-            minWidth: 150,
+            minWidth: 120,
             height: 48,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(29))
