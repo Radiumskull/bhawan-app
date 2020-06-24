@@ -161,18 +161,18 @@ class _LoginPageState extends State<LoginPage> {
                                           ),
                                           RaisedButton(
                                             child: Text(_register ? "Register" : "Login", style: TextStyle(fontFamily: 'Montserrat', fontSize: 18),),
-                                            onPressed: () async {
+                                            onPressed: () {
                                               final form = _formKey.currentState;
                                               if(form.validate()){
                                                 if(_register){
                                                   //Register Process
-                                                  await authBloc.register(_email, _phone);
+                                                  authBloc.register(_email, _phone);
                                                   if(authBloc.error == null){
                                                     Scaffold.of(context).showSnackBar(SnackBar(content: Text("A registration link has been sent to your mail."),));
                                                   }
                                                 } else {
                                                   //Login Process
-                                                  await authBloc.login(_email, _password);
+                                                  authBloc.login(_email, _password);
                                                 }
                                               }
                                             },
