@@ -42,7 +42,7 @@ class AuthBloc extends ChangeNotifier{
     notifyListeners();
   }
 
-  void login(email, password) async {
+  Future<void> login(email, password) async {
     String url = 'https://bhawan.herokuapp.com/api/login/';
     try {
       setLoading();
@@ -63,7 +63,7 @@ class AuthBloc extends ChangeNotifier{
     notifyListeners();
   }
 
-  void register(email, phone) async {
+  Future<void> register(email, phone) async {
     String url = "http://bhawan.co.in/api/register/";
     try{
       setLoading();
@@ -82,7 +82,7 @@ class AuthBloc extends ChangeNotifier{
   }
 
   void clearError(){
-    _error = "";
+    _error = null;
     notifyListeners();
   }
 

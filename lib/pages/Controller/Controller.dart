@@ -76,7 +76,7 @@ class _DimmerState extends State<Dimmer> {
                   });
                 },
                 onChangeEnd: (value){
-                  this.widget.updateSwitch({ widget.switchObject.switchName : value.toInt() });
+                  widget.updateSwitch({ widget.switchObject.switchName : value.toInt() });
                 },
                 activeColor: Colors.orange,
                 label: (sliderValue/255 * 100).round().toString() + "%",
