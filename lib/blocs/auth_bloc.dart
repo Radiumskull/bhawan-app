@@ -43,7 +43,7 @@ class AuthBloc extends ChangeNotifier{
   }
 
   Future<void> login(email, password) async {
-    String url = 'https://bhawan.herokuapp.com/api/login/';
+    String url = 'http://bhawan.co.in/api/login/';
     try {
       setLoading();
       final res = await http.post(url, body : jsonEncode({

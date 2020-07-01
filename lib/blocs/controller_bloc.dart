@@ -35,7 +35,7 @@ class ControllerBloc extends ChangeNotifier{
   }
 
   void updateSwitch(newState) {
-    final url = Uri.parse('http://bhawan.herokuapp.com/api/user/' + this.token + '/');
+    final url = Uri.parse('http://bhawan.co.in/api/user/' + this.token + '/');
     http.patch(url, body: jsonEncode(newState));
   }
 

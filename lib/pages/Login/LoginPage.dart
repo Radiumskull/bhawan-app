@@ -25,9 +25,10 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final authBloc = Provider.of<AuthBloc>(context);
     final _formKey = GlobalKey<FormState>();
-    String _email = "test@gmail.com";
-    String _password = "test123";
-    String _phone = "1231231231";
+    String _email = "";
+    String _password = "";
+    String _phone = "";
+    String _username = "";
 
     void inputHandler(String inputField, String text) {
       switch (inputField) {
@@ -36,6 +37,9 @@ class _LoginPageState extends State<LoginPage> {
           break;
         case "Password":
           _password = text;
+          break;
+        case "Username":
+          _username = text;
           break;
         case "Phone Number":
           _phone = text;
@@ -87,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
             height: 20,
           ),
           InputField(
-              labelText: "Email", inputHandler: inputHandler, type: "email"),
+              labelText: "Username", inputHandler: inputHandler),
           SizedBox(
             height: 20,
           ),
@@ -175,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                                                   }
                                                 } else {
                                                   //Login Process
-                                                  await authBloc.login(_email, _password);
+                                                  await authBloc.login(_username, _password);
                                                 }
                                               }
                                             },
